@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" class="gr__entrptaher_github_io">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <title>Partial Extraction Demo</title>
+
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        font-family: "arial";
+      }
+
+      div.box,
+      span,
+      article,
+      section {
+        display: block;
+        margin: 10px 0;
+        padding: 10px 0;
+        text-align: center;
+        background: #c7f5ff;
+        border-radius: 5px;
+        min-height: 54px;
+      }
+
+      #details {
+        padding: 10px;
+        width: 45%;
+        float: right;
+      }
+
+      #expectation {
+        border: 1px solid red;
+      }
+
+      #boxes {
+        width: 50%;
+        float: left;
+      }
+
+      #boxes i {
+        font-size: small;
+      }
+    </style>
+    <style></style>
+  </head>
+  <body data-gr-c-s-loaded="true">
+    <div id="boxes">
+      Given the following input elements:
+      <section>
+        <i>section</i>
+        <div class="title">Title 1</div>
+        <div class="subtitle">Subtitle 1</div>
+      </section>
+      <span
+        ><i>span</i>
+        <div class="title">Title 2</div>
+        <div class="subtitle">Subtitle 2</div></span
+      >
+      <div class="box">
+        <i>div</i>
+        <div class="subtitle">Subtitle 3</div>
+      </div>
+      <span
+        ><i>span</i>
+        <div class="title">Title 4</div>
+        <div class="subtitle">Subtitle 4</div></span
+      >
+      <div class="box">
+        <i>div</i>
+        <div class="title">Title 5</div>
+        <div class="subtitle">Subtitle 5</div>
+      </div>
+      <div class="box">
+        <i>div</i>
+        <div class="title">Title 6</div>
+        <div class="subtitle">Subtitle 6</div>
+      </div>
+      <span
+        ><i>span</i>
+        <div class="title">Title 7</div>
+        <div class="subtitle">Subtitle 7</div></span
+      >
+      <div class="box">
+        <i>div</i>
+        <div class="title">Title 8</div>
+        <div class="subtitle">Subtitle 8</div>
+      </div>
+      <article>
+        <i>article</i>
+        <div class="subtitle">Subtitle 9</div>
+      </article>
+      <section>
+        <i>section</i>
+        <div class="subtitle">Subtitle 10</div>
+      </section>
+    </div>
+    <div id="details">
+      The output should look like to this:
+      <pre id="expectation">
+[
+  {
+    "title": "Title 1",
+    "subtitle": "Subtitle 1"
+  },
+  {
+    "title": "Title 2",
+    "subtitle": "Subtitle 2"
+  },
+  {
+    "title": "",
+    "subtitle": "Subtitle 3"
+  },
+  {
+    "title": "Title 4",
+    "subtitle": "Subtitle 4"
+  },
+  {
+    "title": "Title 5",
+    "subtitle": "Subtitle 5"
+  },
+  {
+    "title": "Title 6",
+    "subtitle": "Subtitle 6"
+  },
+  {
+    "title": "Title 7",
+    "subtitle": "Subtitle 7"
+  },
+  {
+    "title": "Title 8",
+    "subtitle": "Subtitle 8"
+  },
+  {
+    "title": "",
+    "subtitle": "Subtitle 9"
+  },
+  {
+    "title": "",
+    "subtitle": "Subtitle 10"
+  }
+]</pre
+      >
+    </div>
+    <script>
+      function extractData() {
+        var box = document.querySelector(".title").parentNode;
+        var boxes = box.parentNode.children;
+        return Array.from(boxes).map(function(box) {
+          var title = box.querySelector(".title") || {
+            textContent: ""
+          };
+          var subtitle = box.querySelector(".subtitle") || {
+            textContent: ""
+          };
+          return {
+            title: title.textContent,
+            subtitle: subtitle.textContent
+          };
+        });
+      }
+    </script>
+  </body>
+  <auto-scroll></auto-scroll>
+</html>
